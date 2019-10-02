@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <math.h>
 
-int nb_permut = 0;
 int taille_max = 0;
 int taille = 0;
 
@@ -13,7 +12,6 @@ int taille = 0;
 //Temps pour les 40 plus grands de 100000 -> 5.0410000ms
 void permut(int *a, int *b)
 {
-    nb_permut++;
     int tmp = *a;
     *a = *b;
     *b = tmp;
@@ -110,13 +108,6 @@ void read_data(FILE *datain, int **dataout, int *n, int *k)
 
     for (int i = 0; i < *n; ++i, ++data)
         fscanf(datain, "%d", data);
-
-    /*for (int i = 0; i < *n; i++)
-    {
-        int val;
-        fscanf(datain, "%d", &val);
-        add(data, i, val);
-    }*/
 }
 
 void print_data(int *tableau, int taille)
@@ -157,7 +148,6 @@ int main(int argc, char **argv)
     duree = clock() - duree;
     duree_ms += duree / (double)CLOCKS_PER_SEC * 1000;
     printf("\nfait en %.7fms\n", duree_ms);
-    //printf("Nombre de swamp: %d \n", nb_permut);
 
     free(data);
     return 0;

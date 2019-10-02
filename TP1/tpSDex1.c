@@ -1,5 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
+
+//Temps pour les 40 plus grands de 100000 -> 263.1550000ms
 
 void read_data(FILE *datain, int **dataout, int *n, int *k)
 {
@@ -45,6 +48,8 @@ void bubbleSort(int *tableau, int n, int k)
 
 int main(int argc, char **argv)
 {
+    clock_t duree = clock();
+    double duree_ms;
     int *data;
     int n, k;
     FILE *f_in;
@@ -61,10 +66,12 @@ int main(int argc, char **argv)
     print_data(data, n);
 
     printf("Recherche des %d plus grands éléments du tableau de taille %d : \n", k, n);
-
     bubbleSort(data, n, k);
-
     print_data(data, k);
+
+    duree = clock() - duree;
+    duree_ms += duree / (double)CLOCKS_PER_SEC * 1000;
+    printf("\nfait en %.7fms\n", duree_ms);
 
     free(data);
     return 0;
