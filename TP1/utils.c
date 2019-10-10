@@ -54,3 +54,35 @@ double get_clock_time_in_ms()
 {
     return (clock() - horloge) / (double)CLOCKS_PER_SEC * 1000;
 }
+
+void monitorLaunch(char *title)
+{
+    printf("Lancement de: \033[0;35m%s\033[0m\n", title);
+#ifdef COMPTEUR_PERMUTATION
+    nb_permut = 0;
+#endif
+    start_clock();
+}
+
+void monitorStop()
+{
+    printf("\nTemps d'exécution: \033[0;36m%.7fms\033[0m\n", get_clock_time_in_ms());
+#ifdef COMPTEUR_PERMUTATION
+    printf("Permutations: \033[0;36m%d\033[0m\n", nb_permut);
+#endif
+}
+
+void bubbleSort(int *tableau, int n, int k)
+{
+    int i, j;
+    for (i = 0; i < k; i++)
+    {
+        for (j = n - 2; j >= i; j--)
+        {
+            if (tableau[j] < tableau[j + 1])
+            {
+                permut(&tableau[j + 1], &tableau[j]);
+            }
+        }
+    }
+}

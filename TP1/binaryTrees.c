@@ -121,6 +121,10 @@ void printBinaryTree(struct BinaryTree btree)
             printf("\n");
             currentLevel++;
         }
+        else if (i == n - 1)
+        {
+            printf("\n");
+        }
     }
 }
 
@@ -136,4 +140,16 @@ int validateBtree(struct BinaryTree btree)
             return ERREUR_BROKEN_TREE;
     }
     return 0;
+}
+
+void heapSort(struct BinaryTree *btree)
+{
+    int n = btree->tailleRemplie;
+    for (int i = 0; i < n; i++)
+    {
+        permut(&btree->data[0], &btree->data[btree->tailleRemplie - 1]);
+
+        btree->tailleRemplie--;
+        percolate_down(*btree, 0);
+    }
 }

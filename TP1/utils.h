@@ -9,4 +9,7 @@ void print_data(int *tableau, int taille);
 void read_data(int argc, char **argv, int **dataout, int *n, int *k);
 void start_clock();
 double get_clock_time_in_ms();
+void monitorLaunch(char *title);
+void monitorStop();
+void bubbleSort(int *tableau, int n, int k);
 #endif

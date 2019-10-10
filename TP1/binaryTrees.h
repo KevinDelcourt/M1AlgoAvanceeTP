@@ -21,4 +21,5 @@ struct BinaryTree buildHeapSuccessiveAdd(int *tableau, int *output, int n);
 int tailleMaxBtreePourHauteur(int h);
 void printBinaryTree(struct BinaryTree btree);
 int validateBtree(struct BinaryTree btree);
+void heapSort(struct BinaryTree *btree);
 #endif
