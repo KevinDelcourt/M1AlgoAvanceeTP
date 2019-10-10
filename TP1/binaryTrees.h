@@ -18,5 +18,7 @@ void add(struct BinaryTree *arbre, int value);
 int removeMax(struct BinaryTree *arbre);
 struct BinaryTree buildHeap(int *tableau, int n);
 struct BinaryTree buildHeapSuccessiveAdd(int *tableau, int *output, int n);
-
+int tailleMaxBtreePourHauteur(int h);
+void printBinaryTree(struct BinaryTree btree);
+int validateBtree(struct BinaryTree btree);
 #endif

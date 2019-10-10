@@ -2,6 +2,9 @@
 #include <math.h>
 #include "utils.h"
 
+#define AFFICHAGE_MAX 4
+#define ERREUR_TAILLE_REMPLIE_SUP_TAILLE_MAX 2
+#define ERREUR_BROKEN_TREE 1
 int left(int i)
 {
     return 2 * i + 1;
@@ -93,4 +96,44 @@ struct BinaryTree buildHeapSuccessiveAdd(int *tableau, int *output, int n)
     return btree;
 }
 
-//TODO -> fonction print arbre -> par niveau -> refuse si tailleRemplie trop grand
+int tailleMaxBtreePourHauteur(int h)
+{
+    return pow(2, h + 1) - 1;
+}
+
+void printBinaryTree(struct BinaryTree btree)
+{
+    int currentLevel = 0;
+    int n = btree.tailleRemplie;
+    char *valide = (validateBtree(btree) == 0 ? "\033[0;32mValide\033[0m" : "\033[0;31mCassé\033[0m");
+    printf("Arbre de taille %d/%d (%s): \n", btree.tailleRemplie, btree.tailleMax, valide);
+    if (n > tailleMaxBtreePourHauteur(AFFICHAGE_MAX))
+    {
+        printf("\033[0;33mGrande taille:\033[0m seul les %d premiers niveaux sont affichés.\n", AFFICHAGE_MAX);
+        n = tailleMaxBtreePourHauteur(AFFICHAGE_MAX);
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", btree.data[i]);
+        if ((i + 1) == tailleMaxBtreePourHauteur(currentLevel))
+        {
+            printf("\n");
+            currentLevel++;
+        }
+    }
+}
+
+int validateBtree(struct BinaryTree btree)
+{
+    if (btree.tailleRemplie > btree.tailleMax)
+        return ERREUR_TAILLE_REMPLIE_SUP_TAILLE_MAX;
+    for (int i = 0; i < btree.tailleRemplie; i++)
+    {
+        if (left(i) < btree.tailleRemplie && btree.data[left(i)] > btree.data[i])
+            return ERREUR_BROKEN_TREE;
+        else if (right(i) < btree.tailleRemplie && btree.data[right(i)] > btree.data[i])
+            return ERREUR_BROKEN_TREE;
+    }
+    return 0;
+}
