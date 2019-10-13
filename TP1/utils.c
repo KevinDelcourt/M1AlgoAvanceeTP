@@ -2,27 +2,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
-#ifdef COMPTEUR_PERMUTATION
 int nb_permut = 0;
-#endif
 
 clock_t horloge;
+
+void worstCaseGenerator(int *output, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        output[i] = i;
+    }
+}
 
 void permut(int *a, int *b)
 {
     int tmp = *a;
     *a = *b;
     *b = tmp;
-#ifdef COMPTEUR_PERMUTATION
     nb_permut++;
-#endif
 }
 
 void read_data(int argc, char **argv, int **dataout, int *n, int *k)
 {
     FILE *f_in;
     int *data;
+    int val;
 
     if (argc > 1)
         f_in = fopen(argv[1], "r");
@@ -33,14 +39,29 @@ void read_data(int argc, char **argv, int **dataout, int *n, int *k)
     fscanf(f_in, "%d", k);
     *dataout = (int *)malloc((*n) * sizeof(int));
     data = *dataout;
-
-    for (int i = 0; i < *n; ++i, ++data)
-        fscanf(f_in, "%d", data);
+    worstCaseGenerator(data, *n);
+    /*for (int i = 0; i < *n; ++i, ++data)
+        fscanf(f_in, "%d", data);*/
 }
 
 void print_data(int *tableau, int taille)
 {
-    for (int i = 0; i < taille; ++i)
+    int n = taille;
+    if (taille > 100)
+        n = 100;
+
+    for (int i = 0; i < n; ++i)
+        printf("%d ", tableau[i]);
+    printf("\n");
+}
+
+void reverse_print_data(int *tableau, int taille, int taille_max)
+{
+    int n = taille;
+    if (taille > 100)
+        n = 100;
+
+    for (int i = taille_max - 1; i > taille_max - n - 1; i--)
         printf("%d ", tableau[i]);
     printf("\n");
 }
@@ -57,19 +78,15 @@ double get_clock_time_in_ms()
 
 void monitorLaunch(char *title)
 {
-    printf("Lancement de: \033[0;35m%s\033[0m\n", title);
-#ifdef COMPTEUR_PERMUTATION
+    printf("\nLancement de: \033[0;35m%s\033[0m\n", title);
     nb_permut = 0;
-#endif
     start_clock();
 }
 
 void monitorStop()
 {
     printf("\nTemps d'exécution: \033[0;36m%.7fms\033[0m\n", get_clock_time_in_ms());
-#ifdef COMPTEUR_PERMUTATION
     printf("Permutations: \033[0;36m%d\033[0m\n", nb_permut);
-#endif
 }
 
 void bubbleSort(int *tableau, int n, int k)
@@ -85,4 +102,35 @@ void bubbleSort(int *tableau, int n, int k)
             }
         }
     }
+}
+
+void quickSort(int *tableau, int first, int last)
+{
+    int i, j, pivot;
+
+    if (first < last)
+    {
+        pivot = first;
+        i = first;
+        j = last;
+
+        while (i < j)
+        {
+            while (tableau[i] >= tableau[pivot] && i < last)
+                i++;
+            while (tableau[j] < tableau[pivot])
+                j--;
+            if (i < j)
+                permut(&tableau[i], &tableau[j]);
+        }
+        permut(&tableau[j], &tableau[pivot]);
+        quickSort(tableau, first, j - 1);
+        quickSort(tableau, j + 1, last);
+    }
+}
+
+void arrayCopy(int *source, int **destination, int size)
+{
+    *destination = (int *)malloc((size) * sizeof(int));
+    memcpy(*destination, source, sizeof(int) * size);
 }
