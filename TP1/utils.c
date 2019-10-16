@@ -39,9 +39,9 @@ void read_data(int argc, char **argv, int **dataout, int *n, int *k)
     fscanf(f_in, "%d", k);
     *dataout = (int *)malloc((*n) * sizeof(int));
     data = *dataout;
-    worstCaseGenerator(data, *n);
-    /*for (int i = 0; i < *n; ++i, ++data)
-        fscanf(f_in, "%d", data);*/
+    //worstCaseGenerator(data, *n);
+    for (int i = 0; i < *n; ++i, ++data)
+        fscanf(f_in, "%d", data);
 }
 
 void print_data(int *tableau, int taille)
@@ -83,10 +83,13 @@ void monitorLaunch(char *title)
     start_clock();
 }
 
-void monitorStop()
+struct Activity monitorStop()
 {
-    printf("\nTemps d'exécution: \033[0;36m%.7fms\033[0m\n", get_clock_time_in_ms());
-    printf("Permutations: \033[0;36m%d\033[0m\n", nb_permut);
+
+    struct Activity activity = {nb_permut, get_clock_time_in_ms()};
+    printf("\nTemps d'exécution: \033[0;36m%.7fms\033[0m\n", activity.timeSpent);
+    printf("Permutations: \033[0;36m%d\033[0m\n", activity.nbPermut);
+    return activity;
 }
 
 void bubbleSort(int *tableau, int n, int k)
@@ -107,7 +110,6 @@ void bubbleSort(int *tableau, int n, int k)
 void quickSort(int *tableau, int first, int last)
 {
     int i, j, pivot;
-
     if (first < last)
     {
         pivot = first;

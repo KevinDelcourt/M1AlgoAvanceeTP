@@ -36,29 +36,39 @@ void doQuickSort()
     print_data(dataCopy, k);
 }
 
-void monitoredLaunch(char *title, void (*doSort)(void))
+struct Activity monitoredLaunch(char *title, void (*doSort)(void))
 {
     arrayCopy(data, &dataCopy, n);
     monitorLaunch(title);
     doSort();
-    monitorStop();
+    return monitorStop();
 }
 
 int main(int argc, char **argv)
 {
-    read_data(argc, argv, &data, &n, &k);
+    FILE *f_out;
 
+    read_data(argc, argv, &data, &n, &k);
     printf("Données : \n");
     print_data(data, n);
 
     printf("\nRecherche des %d plus grands éléments du tableau de taille %d : \n", k, n);
 
+    /*f_out = fopen("out.csv", "w");
+    fprintf(f_out, "k,BubbleSort partiel,BuildHeap / Remove,HeapSort\n");
+    struct Activity activity;
+    for (k = 1; k <= n; k++)
+    {
+        activity = monitoredLaunch("BubbleSort partiel", doBubbleSort);
+        fprintf(f_out, "%d,%.7f,", k, activity.timeSpent);
+        activity = monitoredLaunch("BuildHeap / remove", doBuildHeapRemove);
+        fprintf(f_out, "%.7f,", activity.timeSpent);
+        activity = monitoredLaunch("HeapSort", doHeapSort);
+        fprintf(f_out, "%.7f\n", activity.timeSpent);
+    }*/
     monitoredLaunch("BubbleSort partiel", doBubbleSort);
-
     monitoredLaunch("BuildHeap / remove", doBuildHeapRemove);
-
     monitoredLaunch("HeapSort", doHeapSort);
-
     monitoredLaunch("QuickSort", doQuickSort);
 
     free(data);
