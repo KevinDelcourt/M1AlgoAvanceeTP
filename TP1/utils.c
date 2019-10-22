@@ -24,6 +24,24 @@ void permut(int *a, int *b)
     nb_permut++;
 }
 
+void read_worst_case_data(int argc, char **argv, int **dataout, int *n, int *k)
+{
+    FILE *f_in;
+    int *data;
+    int val;
+
+    if (argc > 1)
+        f_in = fopen(argv[1], "r");
+    else
+        f_in = stdin;
+
+    fscanf(f_in, "%d", n);
+    fscanf(f_in, "%d", k);
+    *dataout = (int *)malloc((*n) * sizeof(int));
+    data = *dataout;
+    worstCaseGenerator(data, *n);
+}
+
 void read_data(int argc, char **argv, int **dataout, int *n, int *k)
 {
     FILE *f_in;
@@ -39,7 +57,6 @@ void read_data(int argc, char **argv, int **dataout, int *n, int *k)
     fscanf(f_in, "%d", k);
     *dataout = (int *)malloc((*n) * sizeof(int));
     data = *dataout;
-    //worstCaseGenerator(data, *n);
     for (int i = 0; i < *n; ++i, ++data)
         fscanf(f_in, "%d", data);
 }

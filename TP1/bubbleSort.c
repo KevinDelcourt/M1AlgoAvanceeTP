@@ -44,16 +44,9 @@ struct Activity monitoredLaunch(char *title, void (*doSort)(void))
     return monitorStop();
 }
 
-int main(int argc, char **argv)
+void monitorEveryPossibleK()
 {
     FILE *f_out_time, *f_out_permut;
-
-    read_data(argc, argv, &data, &n, &k);
-    printf("Données : \n");
-    print_data(data, n);
-
-    printf("\nRecherche des %d plus grands éléments du tableau de taille %d : \n", k, n);
-
     f_out_time = fopen("time.csv", "w");
     f_out_permut = fopen("permut.csv", "w");
 
@@ -62,6 +55,7 @@ int main(int argc, char **argv)
     struct Activity activity;
     for (k = 1; k <= n; k++)
     {
+        printf("\nRecherche des %d plus grands éléments du tableau de taille %d : \n", k, n);
         activity = monitoredLaunch("BubbleSort partiel", doBubbleSort);
         fprintf(f_out_time, "%d,%.7f,", k, activity.timeSpent);
         fprintf(f_out_permut, "%d,%d,", k, activity.nbPermut);
@@ -74,10 +68,27 @@ int main(int argc, char **argv)
     }
     fclose(f_out_time);
     fclose(f_out_permut);
-    /*monitoredLaunch("BubbleSort partiel", doBubbleSort);
+}
+
+void monitorForCurrentK()
+{
+    printf("\nRecherche des %d plus grands éléments du tableau de taille %d : \n", k, n);
+    monitoredLaunch("BubbleSort partiel", doBubbleSort);
     monitoredLaunch("BuildHeap / remove", doBuildHeapRemove);
     monitoredLaunch("HeapSort", doHeapSort);
-    monitoredLaunch("QuickSort", doQuickSort);*/
+    monitoredLaunch("QuickSort", doQuickSort);
+}
+
+int main(int argc, char **argv)
+{
+
+    read_data(argc, argv, &data, &n, &k);
+    //read_worst_case_data(argc, argv, &data, &n, &k);
+    printf("Données : \n");
+    print_data(data, n);
+
+    //monitorEveryPossibleK();
+    monitorForCurrentK();
 
     free(data);
     free(dataCopy);
