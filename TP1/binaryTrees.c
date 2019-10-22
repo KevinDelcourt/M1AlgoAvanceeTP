@@ -5,6 +5,12 @@
 #define AFFICHAGE_MAX 4
 #define ERREUR_TAILLE_REMPLIE_SUP_TAILLE_MAX 2
 #define ERREUR_BROKEN_TREE 1
+
+int prioritaire(int a, int b)
+{
+    return a > b;
+}
+
 int left(int i)
 {
     return 2 * i + 1;
@@ -23,7 +29,7 @@ int parent(int i)
 void percolate_down(struct BinaryTree arbre, int i)
 {
     int m;
-    if (left(i) < arbre.tailleRemplie && arbre.data[i] < arbre.data[left(i)])
+    if (left(i) < arbre.tailleRemplie && prioritaire(arbre.data[left(i)], arbre.data[i]))
     {
         m = left(i);
     }
@@ -32,7 +38,7 @@ void percolate_down(struct BinaryTree arbre, int i)
         m = i;
     }
 
-    if (right(i) < arbre.tailleRemplie && arbre.data[m] < arbre.data[right(i)])
+    if (right(i) < arbre.tailleRemplie && prioritaire(arbre.data[right(i)], arbre.data[m]))
         m = right(i);
 
     if (m != i)
@@ -45,7 +51,7 @@ void percolate_down(struct BinaryTree arbre, int i)
 void percolate_up(struct BinaryTree arbre, int i)
 {
     int j = parent(i);
-    while (i > 0 && arbre.data[j] < arbre.data[i])
+    while (i > 0 && prioritaire(arbre.data[i], arbre.data[j]))
     {
         permut(&arbre.data[i], &arbre.data[j]);
         i = j;
@@ -134,17 +140,16 @@ int validateBtree(struct BinaryTree btree)
         return ERREUR_TAILLE_REMPLIE_SUP_TAILLE_MAX;
     for (int i = 0; i < btree.tailleRemplie; i++)
     {
-        if (left(i) < btree.tailleRemplie && btree.data[left(i)] > btree.data[i])
+        if (left(i) < btree.tailleRemplie && prioritaire(btree.data[left(i)], btree.data[i]))
             return ERREUR_BROKEN_TREE;
-        else if (right(i) < btree.tailleRemplie && btree.data[right(i)] > btree.data[i])
+        else if (right(i) < btree.tailleRemplie && prioritaire(btree.data[right(i)], btree.data[i]))
             return ERREUR_BROKEN_TREE;
     }
     return 0;
 }
 
-void heapSort(struct BinaryTree *btree)
+void heapSort(struct BinaryTree *btree, int n)
 {
-    int n = btree->tailleRemplie;
     for (int i = 0; i < n; i++)
     {
         permut(&btree->data[0], &btree->data[btree->tailleRemplie - 1]);

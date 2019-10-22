@@ -26,7 +26,7 @@ void doBuildHeapRemove()
 void doHeapSort()
 {
     struct BinaryTree btree = buildHeap(dataCopy, n);
-    heapSort(&btree);
+    heapSort(&btree, n);
     reverse_print_data(btree.data, k, n);
 }
 
@@ -73,10 +73,11 @@ void monitorEveryPossibleK()
 void monitorForCurrentK()
 {
     printf("\nRecherche des %d plus grands éléments du tableau de taille %d : \n", k, n);
-    monitoredLaunch("BubbleSort partiel", doBubbleSort);
-    monitoredLaunch("BuildHeap / remove", doBuildHeapRemove);
-    monitoredLaunch("HeapSort", doHeapSort);
-    monitoredLaunch("QuickSort", doQuickSort);
+    monitoredLaunch("BubbleSort partiel", doBubbleSort);      //T: theta de kn S: theta de 1
+    monitoredLaunch("BuildHeap / remove", doBuildHeapRemove); //T: theta de n + klogn S: theta de 1
+    monitoredLaunch("HeapSort", doHeapSort);                  //T: theta de n log n - S: theta de 1
+    monitoredLaunch("QuickSort", doQuickSort);                //T: n log n
+    //heapsort / quicksort plus perf que bubblesort partiel ssi k > log n
 }
 
 int main(int argc, char **argv)

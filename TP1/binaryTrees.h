@@ -9,6 +9,7 @@ struct BinaryTree
     int tailleRemplie;
 };
 
+int prioritaire(int a, int b);
 int left(int i);
 int right(int i);
 int parent(int i);
@@ -21,5 +22,5 @@ struct BinaryTree buildHeapSuccessiveAdd(int *tableau, int *output, int n);
 int tailleMaxBtreePourHauteur(int h);
 void printBinaryTree(struct BinaryTree btree);
 int validateBtree(struct BinaryTree btree);
-void heapSort(struct BinaryTree *btree);
+void heapSort(struct BinaryTree *btree, int n);
 #endif
