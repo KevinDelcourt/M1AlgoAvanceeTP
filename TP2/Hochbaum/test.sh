@@ -1,0 +1,1 @@
+(echo "digraph {"; perl -me 'if (/^A\s+(\d+)\s+(\d+)\s+(\d+)\s*|/) { print qq{\t$1 -> $2 [label= "$3"]\n};}' exRivières.max ; echo "}") | dot -Tpng > file.png
