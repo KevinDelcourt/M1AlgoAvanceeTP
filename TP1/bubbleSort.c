@@ -3,8 +3,6 @@
 #include "utils.h"
 #include "binaryTrees.h"
 
-//Temps pour les 40 plus grands de 100000 -> 8.1550000ms // 393946 permutations
-
 int *data;
 int *dataCopy;
 int n, k;
