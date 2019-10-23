@@ -24,7 +24,7 @@ void doBuildHeapRemove()
 void doHeapSort()
 {
     struct BinaryTree btree = buildHeap(dataCopy, n);
-    heapSort(&btree, n);
+    heapSort(&btree, k);
     reverse_print_data(btree.data, k, n);
 }
 
