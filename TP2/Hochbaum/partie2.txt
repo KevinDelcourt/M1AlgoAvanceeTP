@@ -1,0 +1,54 @@
+========== USINES
+
+minimize c = 4n11 + 3n12 + 6n13 + 3n21 + 5n22 + 3n23 subject to
+n11 + n21 = 50
+n12 + n22 = 70
+n23 + n13 = 80
+n11 + n12 + n13 <= 100
+n21 + n22 + n23 <= 150
+integer n11, n12, n13, n21, n22, n23
+
+Optimal solution: c = 600; n11 = 0, n12 = 70, n13 = 0, n21 = 50, n22 = 0, n23 = 80
+
+========== USA USA USA USA
+
+0.65 * 300 = 195
+0.45 * 1300 = 585
+0.10 * 2600 = 260
+
+minimize c = 10000x1 + 7000x2 + 5000x3 subject to
+x1 - 3x2 - 3x3 >= 0
+5x1 + 2x2 + x3 >= 195
+12x1 + 15x2 +5x3 >= 585
+2x1 + 2x2 + 3x3 >= 260
+integer x1, x2, x3
+
+Optimal solution: c = 1015000; x1 = 87, x2 = 0, x3 = 29
+
+=========== FONDERIE
+n1 et n2 en tonnes
+Fonderie -> 6/60 n1 en 1 min -> 5/60 n2 en 1 min
+Atenier -> 12/60 n1 -> 15/60 n2
+
+Maximize pognon = 2000n1 + 3000n2 subject to
+14n1 + 30n2 <= 210
+(6/60)n1 + (5/60)n2 <= 100
+(12/60)n1 + (15/60)n2 <= 45
+
+Optimal solution: pognon = 30000; n1 = 15, n2 = 0
+
+=========== ARTICLES
+
+minimize cout = 3stock1 + 3stock2 + 7straitant1 + 7straitant2 + 7straitant3 + 0normal1 + 0normal2 + 0normal3 subject to
+normal1 + straitant1 - stock1 >= 900
+stock1 + normal2 + straitant2 - stock2 >= 1100
+stock2 + normal3 + straitant3 = 1700
+normal1 <= 1200
+normal2 <= 1200
+normal3 <= 1200
+straitant1 <= 400
+straitant2 <= 400
+straitant3 <= 400
+integer stock1, stock2, normal1, normal2, normal3, straitant1, straitant2, straitant3
+
+Optimal solution: cout = 2800; normal1 = 1200, normal2 = 1200, normal3 = 1200, stock1 = 300, stock2 = 400, straitant1 = 0, straitant2 = 0, straitant3 = 100
