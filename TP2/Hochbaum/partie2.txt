@@ -1,3 +1,7 @@
+https://www.zweigmedia.com/simplex/simplex.php?lang=en
+
+Note forme standard -> var d'écart
+forme canonique -> max et que des <= (ou inverse)
 ========== USINES
 
 minimize c = 4n11 + 3n12 + 6n13 + 3n21 + 5n22 + 3n23 subject to
@@ -52,3 +56,47 @@ straitant3 <= 400
 integer stock1, stock2, normal1, normal2, normal3, straitant1, straitant2, straitant3
 
 Optimal solution: cout = 2800; normal1 = 1200, normal2 = 1200, normal3 = 1200, stock1 = 300, stock2 = 400, straitant1 = 0, straitant2 = 0, straitant3 = 100
+
+
+
+======== Fruits de mer
+max gain = 9a + 13b subject to
+2a + 3b <= 100
+2a + 2b <= 50
+3b <= 60
+integer a,b
+
+======= Avec coûts
+max benef = 3a + 3b subject to
+2a + 3b <= 100
+2a + 2b <= 50
+3b <= 60
+integer a,b
+
+
+
+
+
+
+
+
+
+
+
+
+=========== yaourts
+max profit = 10a + 14b subject to
+6a + 3b <= 1200
+1a + 2b <= 350
+3b <= 450
+integer a, b
+
+========== avec coût
+Coût pour un lot a: 1*6 + 2*1 = 8 euros ===> bénéf de 2
+Coût pour un lot b: 1*3 + 2*2 + 1*3 = 10 euros ===> bénéf de 4
+
+max benef = 2a +4b
+6a + 3b <= 1200
+1a + 2b <= 350
+3b <= 450
+integer a, b
